@@ -1,0 +1,122 @@
+@import url(https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css);
+
+body {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    background-color: #495057;
+}
+
+header img {
+    flex-basis: 40px;
+    margin-left: 10px;
+
+}
+
+#control {
+    position: relative;
+    width: 100%;
+}
+
+h1 {
+    color: black;
+    margin-left: 10px;
+}
+
+footer {
+    background-color: #6c757d;
+    height: 20px;
+    width: 100vw;
+    position: relative;
+}
+
+.panel {
+    width: 40% !important;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+}
+
+#centralPanel {
+    display: flex;
+}
+
+#addPanel {
+    display: none;
+}
+
+table {
+    width: 60% !important;
+    margin: 0 !important;
+    height: 100%;
+    max-height: 100%;
+}
+
+.focusTr:active {
+    background-color: #4aafdd!important;
+}
+
+tbody {
+    min-height: 100%;
+}
+
+.image-container {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 2px solid #dee2e6;
+}
+
+.image-container img:hover {
+    width: 160px;
+    height: 160px;
+    background-color: #24be76;
+    border-radius: 1.5rem;
+    border: 4px solid #67d19f;
+}
+
+#trash:hover {
+    border: 4px solid #fd6b6b;
+    background-color: #d82d17;
+}
+
+.image-container img:active {
+    background-color: #1b8b57;
+    border-radius: 1.5rem;
+    border: 4px solid rgb(34, 163, 103);
+}
+
+#trash:active {
+    border: 4px solid #c75353;
+    background-color: #8b1c0d;
+}
+
+#addPanel form {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 70px;
+}
+
+#addPanel img {
+    width: 40px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

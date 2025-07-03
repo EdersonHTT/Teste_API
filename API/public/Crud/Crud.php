@@ -11,7 +11,7 @@ class Crud {
         if ($nationality) {
             $response = $mysqlConnect->query("INSERT pessoa(nome, sexo, nascimento, altura, peso, nacionalidade) VALUES ('$name', '$sex', '$birth', $height, $weight, '$nationality')");
         } else {
-            $response = $mysqlConnect->query("INSERT pessoa(nome, sexo, nascimento, altura, peso, nacionalidade) VALUES ('$name', '$sex', '$birth', $height, $weight)");
+            $response = $mysqlConnect->query("INSERT pessoa(nome, sexo, nascimento, altura, peso) VALUES ('$name', '$sex', '$birth', $height, $weight)");
         }
 
         if (!$response) {
@@ -26,24 +26,19 @@ class Crud {
 
         $response = $mysqlConnect->query("SELECT * FROM pessoa");
 
-        $list;
-        foreach($response as $res) {
-            $list[] = $res;
-        }
-
-        return json_encode($list);
+        return $response;
     }
 
-    public function update(int $id, string $name, string $sex, string $birth, float $height, float $weight, string $nationality = null){
+    public function update(int $id, string $name, string $genre, string $birth, float $height, float $weight, string $nationality = null){
         require_once __DIR__ . "../../../api_core/connect.php";
 
         $response;
 
         if ($nationality) {
-            $response = $mysqlConnect->query("UPDATE pessoa SET nome = '$name', sexo = '$sex', nascimento = '$birth', altura = $height, peso = $weight, nacionalidade = '$nationality' WHERE id = $id");
+            $response = $mysqlConnect->query("UPDATE pessoa SET nome = '$name', sexo = '$genre', nascimento = '$birth', altura = $height, peso = $weight, nacionalidade = '$nationality' WHERE id = $id");
 
         } else {
-            $response = $mysqlConnect->query("UPDATE pessoa SET nome = '$name', sexo = '$sex', nascimento = '$birth', altura = $height, peso = $weight WHERE id = $id");
+            $response = $mysqlConnect->query("UPDATE pessoa SET nome = '$name', sexo = '$genre', nascimento = '$birth', altura = $height, peso = $weight WHERE id = $id");
 
         }
 
