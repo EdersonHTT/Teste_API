@@ -1,9 +1,9 @@
 <?php
-include __DIR__ . "/API/public/Crud/Crud.php";
+include __DIR__ . "/API/public/Person/Person.php";
 
-use request\Crud;
+use request\Person;
 
-$request = new Crud();
+$request = new Person();
 ?>
 
 <!DOCTYPE html>
@@ -17,66 +17,75 @@ $request = new Crud();
     <link rel="icon" href="IMG\controller.svg">
 </head>
 
-<body class="bg-light">
+<body id="container" class="bg-light">
     <header class="border-bottom border-5">
         <img class="ml-3" src="IMG\controller.svg" alt="Controle">
-        <h1>Controle</h1>
+        <h1>Control</h1>
+        <i class="bi bi-0-circle-fill w-25"></i>
     </header>
     <div id="control" class="d-flex h-100">
-        <table class="table table-border table-bordered border-4 table-striped table-hover fs-4 border-start border-5">
-            <th class="">#</th>
-            <th class="">Nome</th>
-            <th class="">Idade</th>
-            <th class="">Sexo</th>
-            <th class="">Peso</th>
-            <th class="">Altura</th>
-            <th class="">Nacionalidade</th>
-            <tbody class="table-group-divider">
-                <?php
-                $list = $request->get();
+        <div class="forTable border-start border-5">
+            <table class="table table-border table-bordered border-4 table-striped table-hover fs-4">
+                <thead>
+                    <th class="">#</th>
+                    <th class="">Nome</th>
+                    <th class="">Idade</th>
+                    <th class="">Sexo</th>
+                    <th class="">Peso</th>
+                    <th class="">Altura</th>
+                    <th class="">Nacionalidade</th>
+                </thead>
 
-                while ($res = $list->fetch_object()) {
-                    echo "<tr style='cursor: pointer;' onclick='modify($res->id)'>";
-                    echo "<td class='id$res->id'>" . $res->id . "</td>";
-                    echo "<td class='id$res->id'>" . $res->nome . "</td>";
+                <tbody class="table-group-divider ">
+                    <?php
+                    $list = $request->get();
 
-                    $data = substr($res->nascimento, 0, 4);
-                    $data = ((int) date('Y')) - ((int) $data);
+                    while ($res = $list->fetch_object()) {
+                        echo "<tr style='cursor: pointer;' onclick='getId($res->id)'>";
+                        echo "<td class='id$res->id'>" . $res->id . "</td>";
+                        echo "<td class='id$res->id'>" . $res->nome . "</td>";
 
-                    echo "<td class='id$res->id'>" . $data . "</td>";
+                        $data = substr($res->nascimento, 0, 4);
+                        $data = ((int) date('Y')) - ((int) $data);
 
-                    if ($res->sexo == "M") {
-                        echo "<td class='id$res->id'>Masculino</td>";
-                    } else {
-                        echo "<td class='id$res->id'>Feminino</td>";
+                        echo "<td id='$res->nascimento' class='id$res->id'>" . $data . "</td>";
+
+                        if ($res->sexo == "M") {
+                            echo "<td class='id$res->id'>Masculino</td>";
+                        } else {
+                            echo "<td class='id$res->id'>Feminino</td>";
+                        }
+
+                        echo "<td class='id$res->id'>" . $res->peso . "kg</td>";
+                        echo "<td class='id$res->id'>" . $res->altura . "m</td>";
+                        echo "<td class='id$res->id'>" . $res->nacionalidade . "</td>";
+                        echo "</tr>";
                     }
+                    ?>
+                </tbody>
 
-                    echo "<td class='id$res->id'>" . $res->peso . "kg</td>";
-                    echo "<td class='id$res->id'>" . $res->altura . "m</td>";
-                    echo "<td class='id$res->id'>" . $res->nacionalidade . "</td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+            </table>
+        </div>
         <div id="centralPanel" class="panel justify-content-evenly align-items-center border-start border-end border-5">
             <div class="image-container mt-6">
-                <img src="./IMG/plus-circle.svg" class="p-3 m-0" alt="Criar" onclick="plus()">
+                <img src="./IMG/plus-circle.svg" class="requirement p-3 m-0" alt="Criar" onclick="plus()">
             </div>
             <div class="image-container">
-                <img src="./IMG/pencil-square.svg" class="p-3 m-0" alt="Atualizar">
+                <img src="./IMG/pencil-square.svg" id="modifyDisable" class="modify p-3 m-0" alt="Atualizar" onclick="modify(this.id)">
             </div>
             <div class="image-container mb-6">
-                <img src="./IMG/trash.svg" id="trash" class="p-3 m-0" alt="Excluir">
+                <img src="./IMG/trash.svg" id="trashDisable" class="trash p-3 m-0" alt="Excluir" onclick="trash()">
             </div>
         </div>
         <div id="addPanel" class="panel justify-content-evenly align-items-center border-start border-end border-5">
-            
-            <button onclick="back()" class="btn align-self-start mt-4 btn-primary mb-3" style="border-top-left-radius: 0; border-bottom-left-radius: 0"><img src="./IMG/arrow-left.svg" alt="voltar"></button>
-            
-            <form action="action.php" method="post" class="d-flex flex-column p-5 fs-4">
+
+            <button onclick="back()" class="btn align-self-start mt-4 btn-secondary mb-3" style="border-top-left-radius: 0; border-bottom-left-radius: 0"><img src="./IMG/arrow-left.svg" alt="voltar" class="arrow"></button>
+
+            <form action="action.php?action=POST" method="post" class="d-flex flex-column p-5 pt-3 fs-4">
                 <div class="d-flex align-items-center justify-content-evenly mb-4">
-                    <div class="border border-3 border-dark rounded-start w-25 h-0"></div><h2 class="text-nowrap">Adicionar Pessoa</h2><div class="border border-3 border-dark rounded-end w-25 h-0"></div>
+                    <div class="border border-3 border-dark rounded-start w-25 h-0"></div>
+                    <h2 class="text-nowrap">Adicionar Pessoa</h2>
+                    <div class="border border-3 border-dark rounded-end w-25 h-0"></div>
                 </div>
 
                 <div class="labelAdd form-floating mb-5 me-5 ms-5" id="labelAdd" style="height: 80px">
@@ -85,7 +94,7 @@ $request = new Crud();
                 </div>
 
                 <div class="labelAdd form-floating mb-5 me-5 ms-5" style="height: 80px">
-                    <input type="date" name="birth" class="form-control h-100 fs-5"  id="floatingInput" placeholder="dd/MM/yyyy" require>
+                    <input type="date" name="birth" class="form-control h-100 fs-5" id="floatingInput" placeholder="dd/MM/yyyy" require>
                     <label for="birth">Data de Nascimento</label>
                 </div>
 
@@ -102,7 +111,7 @@ $request = new Crud();
 
                 <div class="d-flex justify-content-evenly me-5 ms-5">
                     <div class="labelAdd form-floating mb-5 w-100 me-3" style="height: 80px">
-                        <input type="number" step="0.01" name="height" class="form-control h-100 fs-5" placeholder="0.00" require> 
+                        <input type="number" step="0.01" name="height" class="form-control h-100 fs-5" placeholder="0.00" require>
                         <label for="height" class="form-label">Altura</label>
                     </div>
                     <div class="labelAdd form-floating mb-5 w-100 ms-3" style="height: 80px">
@@ -111,19 +120,26 @@ $request = new Crud();
                     </div>
                 </div>
 
-                <input type="submit" class="btn btn-primary align-self-center fs-3 w-75 pt-2 pb-2" value="Criar">
+                <div class="labelAdd form-floating mb-5 me-5 ms-5" id="labelAdd" style="height: 80px">
+                    <input type="text" name="nationality" class="form-control h-100 fs-5" id="floatingInput" placeholder="nationality" require>
+                    <label for="nationality">Nacionalidade</label>
+                </div>
+
+                <input type="submit" class="btn btn-secondary align-self-center fs-3 w-75 pt-2 pb-2" value="Criar">
             </form>
         </div>
+        <div id="modifyPanel" class="panel justify-content-evenly align-items-center border-start border-end border-5">
+
+            <button onclick="back()" class="btn align-self-start mt-4 btn-secondary mb-3" style="border-top-left-radius: 0; border-bottom-left-radius: 0"><img src="./IMG/arrow-left.svg" alt="voltar" class="arrow"></button>
+            
+            <form action="action.php?action=PUT" id="makePut" method="post" class="d-flex flex-column p-5 pt-3 fs-4">
+
+            </form>
+        </div>
+
     </div>
     <footer class="border-top border-5"></footer>
     <script src="script.js"></script>
 </body>
 
 </html>
-
-<!-- <?php
-
-// if ($_POST["id"]) {
-//     $id = $_REQUEST["id"];
-//     echo $id;
-// } -->
