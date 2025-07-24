@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . "/API/public/Person/Person.php";
+include __DIR__ . "/api/public/Person/Person.php";
 
 use request\Person;
 

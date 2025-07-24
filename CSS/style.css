@@ -12,12 +12,35 @@ header {
     display: flex;
     flex-direction: row;
     background-color: #495057;
+    width: 100vw;
+    position: relative;
+    align-items: center;
+    height: 7%;
+}
+
+.menu {
+    width: auto;
+    height: 100%;
+    display: none;
+    position: absolute;
+    right: 0;
+    justify-content: center;
+    border: 4px solid rgba(109, 163, 250, 0);
 }
 
 header img {
     flex-basis: 40px;
     margin-left: 10px;
     filter: invert(100%);
+}
+
+.menu img {
+    margin: 0;
+}
+
+#leave {
+    background-color: rgb(109, 163, 250);
+    border: 4px solid rgba(109, 163, 250, 0.389);
 }
 
 #control {
@@ -29,6 +52,7 @@ header img {
 
 h1 {
     color: rgb(255, 255, 255);
+    margin: 0;
     margin-left: 10px;
 }
 
@@ -48,6 +72,7 @@ footer {
 
 #centralPanel {
     display: flex;
+
 }
 
 #addPanel {
@@ -69,7 +94,6 @@ thead {
 }
 
 .table-group-divider {
-    overflow: auto;
     height: 100% !important;
 }
 
@@ -78,20 +102,22 @@ thead {
     margin: 0 !important;
     height: 100%;
     position: relative;
-    overflow: auto;
 }
 
 .table th {
     height: 10px;
+    width: 20px;
 }
 
-.table td {
-    text-overflow: ellipsis;
+td {
+    text-overflow: ellipsis !important;
+    width: 100px !important;
+    
 }
 
 .image-container {
-    width: 150px;
-    height: 150px;
+    width: 150px !important;
+    height: 150px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -150,11 +176,11 @@ thead {
 }
 
 #modifyPanel {
- display: none;
+    display: none;
 }
 
-#addPanel form {
-    width: 100%;
+.panel form {
+    flex-basis: 600px;
     height: 100%;
     margin-bottom: 70px;
 }
@@ -167,4 +193,72 @@ thead {
 .arrow {
     filter: invert(100%);
     width: 40px
+}
+
+.panel div {
+    margin-bottom: 2.5vh;
+}
+
+.panel input {
+    height: 70px !important;
+}
+
+.panel .form-check-input {
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.button {
+    width: 100%;
+}
+
+#centralPanel {
+    display: flex;
+}
+
+@media (max-height: 920px) {
+    .panel h2 {
+        font-size: 30px;
+    }
+
+    .panel div {
+        margin-bottom: 2vh
+    }
+
+    .panel label {
+        font-size: 20px;
+    }
+
+    .panel input {
+        height: 60px !important;
+        font-size: 15px;
+    }
+
+    .panel .form-check-input {
+        height: 20px;
+        width: 20px;
+    }
+
+    .button {
+        height: 7vh !important;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .menu {
+        display: flex;
+    }
+
+    #centralPanel {
+        display: none;
+    }
+
+    .panel {
+        width: 100%!important;
+    }
+
+    .forTable {
+        width: 100%!important;
+    }
 }
