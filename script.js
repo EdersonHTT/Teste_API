@@ -166,30 +166,33 @@ function menu(element) {
         panel.style.display = "none"
         addPanel.style.display = "none"
         modifyPanel.style.display = "none";
-        element.id = "open"
+        element.id = "open";
     }
 }
 
 window.onresize = () => {
-    let menu = document.getElementsByClassName("menu")
+    let menu = document.getElementsByClassName("menu");
     let addPanel = document.getElementById("addPanel");
     let modifyPanel = document.getElementById("modifyPanel");
+    let phone;
 
-    if (window.innerWidth > 1200) {
+    if (window.innerWidth > 1200 && phone) {
         table.style.display = "flex";
 
-        addPanel.style.display = "none"
+        addPanel.style.display = "none";
         modifyPanel.style.display = "none";
 
         panel.style.display = "flex";
-        menu[0].id = "open"
-    } else {
+        menu[0].id = "open";
+        phone = false;
+    } else if (!phone) {
         table.style.display = "flex";
 
         addPanel.style.display = "none"
         modifyPanel.style.display = "none";
         
         panel.style.display = "none";
-        menu[0].id = "open"
+        menu[0].id = "open";
+        phone = true;
     }
 }
